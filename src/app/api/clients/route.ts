@@ -11,25 +11,37 @@ import { auth } from "@/server/better-auth/config"
 
 export async function GET() {
 
-	const session=await auth.api.getSession({
-		headers:await headers(),
-	})
-
-	const userId=session?.user?.id??null
-
-
-  const data = await db
-    .select()
-    .from(clients)
-    .orderBy(desc(clients.id))
-
-
-  return NextResponse.json({
-	clients:data,
-	userId
+  const session = await auth.api.getSession({
+    headers: await headers(),
   })
 
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+  }
 
+  const userId = session.user.id
+  const role = session.user.role
+
+  let data
+
+  if (role === "admin") {
+    // Admin → all clients
+    data = await db
+      .select()
+      .from(clients)
+      .orderBy(desc(clients.id))
+  } else {
+    // Employee → only their clients
+    data = await db
+      .select()
+      .from(clients)
+      .where(eq(clients.userId, userId))
+      .orderBy(desc(clients.id))
+  }
+
+  return NextResponse.json({
+    clients: data,
+  })
 }
 
 
