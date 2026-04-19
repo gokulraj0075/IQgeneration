@@ -94,7 +94,7 @@ export default function EmployeeDashboard({ userId }: { userId: string }) {
   loadData()
  },[loadData])
 
- const myClients = clients.filter(c=>c.userId===userId).length
+ const myClients = clients.length
  const myQuotations = quotations.filter(q=>q.userId===userId).length
  const myInvoices = invoices.filter(i=>i.userId===userId).length
 

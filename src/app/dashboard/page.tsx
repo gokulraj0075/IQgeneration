@@ -93,10 +93,10 @@ export default async function Page() {
 				</header>
 
 				<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-					{role === "admin" && <AdminDashboard />}
-					{role === "employee" && <EmployeeDashboard userId={session.user.id}/>}
-					{/* {role === "client" && <ClientDashboard />} */}
-				</div>
+                    {role === "admin" && <AdminDashboard />}
+                    {role === "employee" && <EmployeeDashboard userId={session.user.id} />}
+                    {/* {role === "client" && <ClientDashboard />} */}
+                </div>
 			</SidebarInset>
 		</SidebarProvider>
 	);
