@@ -104,7 +104,7 @@ export default function EmployeeDashboard({ userId }: { userId: string }) {
 
    <Card>
     <CardHeader>
-     <CardTitle>My Clients</CardTitle>
+     <CardTitle>Total Clients</CardTitle>
     </CardHeader>
     <CardContent>
         <p className="font-bold text-2xl">{myClients}</p>
